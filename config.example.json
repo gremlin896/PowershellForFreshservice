@@ -1,0 +1,5 @@
+{
+    "api_key": "YOUR_API_KEY",
+    "domain":  "https://YOUR_SUBDOMAIN.freshservice.com",
+    "default_cache_time":   60
+}
