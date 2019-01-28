@@ -89,7 +89,14 @@ function Get-FreshservicePaginated
             "$($domain)$($path)?per_page=$per_page&page=$_"
         }
 
-        Write-Progress -Activity "Paginating $path using V$API API" -Status "$($pg_result.Length) pages loaded, loading pages $range (max concurrent: $concurrent)"
+        if ($async -eq $true)
+        {
+            Write-Progress -Activity "Paginating $path async using V$API API" -Status "$($pg_result.Length) pages loaded, loading pages $range (max concurrent: $concurrent)"
+
+        }
+        else {
+            Write-Progress -Activity "Paginating $path using V$API API" -Status "$($pg_result.Length) pages loaded"
+        }
 
         $result = Invoke-FreshserviceMultipleWebRequests $url_array -api_key $api_key -cached:$cached -async:$async
 
