@@ -143,18 +143,57 @@ function Get-FreshservicePaginated
     return $pg_result
 }
 
-function Invoke-FreshserviceRestMethod
+function Invoke-FreshserviceRestMethod ##TODO: NEED API LIMIT WARNINGS, ETC + other features from old func
 {
     param (
-        #validate
-        [string]$method,
+        [Parameter(Mandatory)]
+        [ValidateSet('Get', 'Post', 'DELETE', 'Put')]
+        [string] $Method,
 
-        [string]$url,
+        [Parameter(Mandatory)]
+        [string]$path,
 
-        [string]$api_key,
+        [string]$domain = $config.domain,
+
+        [string]$api_key = $config.api_key,
         #if put or post
-        [string]$content
+        [string]$content,
+        #if get
+        [switch]$cached,
+
+        $Body
     )
+
+    $EncodedCredentials = [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f $api_key, $null)))
+    $HTTPHeaders = @{}
+    $HTTPHeaders.Add('Authorization', ("Basic {0}" -f $EncodedCredentials))
+    $HTTPHeaders.Add('Content-Type', 'application/json')
+    [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12
+
+    if ($path.StartsWith('/'))
+    {
+        $path = $path.Substring(1)
+    }
+    if ($path.EndsWIth('/'))
+    {
+        $path = $path.Substring(0, $path.Length - 1)
+    }
+
+    if ($domain -ne $null)
+    {
+        $url = $domain + '/' + $path
+    }
+
+    if (($method -ne 'get') -and ($cached -eq $true))
+    {
+        throw "Cache can only be used with get method"
+    }
+
+    $rest_args = @{
+
+    }
+
+    Invoke-RestMethod -method $Method -uri $url -headers $HTTPHeaders -ErrorAction Stop -Body $Body
 }
 
 function Update-Freshservice
@@ -254,7 +293,9 @@ function Invoke-FreshserviceMultipleWebRequests
     )
     if ($async -eq $false)
     {
-        $result = $url_array | ForEach-Object {Invoke-FreshserviceWebRequest $_ -cached:$cached -api_key $api_key -ErrorAction Stop}
+        $result = $url_array | ForEach-Object {
+            Invoke-FreshserviceWebRequest $_ -cached:$cached -api_key $api_key -ErrorAction Stop
+        }
         return $result
     }
     else

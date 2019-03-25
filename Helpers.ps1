@@ -4,6 +4,13 @@ function Debug-Error
 
 }
 
+function Import-Config {
+    param(
+        $path = '.\config.json'
+    )
+    $script:config = Get-Content -Path $path -Raw | ConvertFrom-Json
+}
+
 function Read-SingleProperty
 {
     [CmdletBinding()]
