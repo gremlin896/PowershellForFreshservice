@@ -18,7 +18,7 @@ function New-FreshserviceLocation
 
         [string]$name, #todo:mandatory
         [int64]$parent_location_id,
-        [bigint]$primary_contact_id,
+        [int64]$primary_contact_id,
 
         [string]$line1,
         [string]$line2,
@@ -27,14 +27,6 @@ function New-FreshserviceLocation
         [string]$country,
         [string]$zipcode
     )
-
-    # $body = @{}
-
-    # foreach ($key in $PSBoundParameters.Keys) {
-    #     $body.Add($key, $PSBoundParameters[$key])
-    # }
-
-    # $address
 
     $body = @{
         name = $name
