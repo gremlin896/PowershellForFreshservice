@@ -60,10 +60,12 @@
     'Get-Freshservice',
     'Get-FreshservicePaginated',
     'Invoke-FreshserviceWebRequest',
-    'Invoke-FreshserviceMultipleWebRequests'
+    'Invoke-FreshserviceMultipleWebRequests',
+    'Invoke-FreshserviceRestMethod',
     'Update-Freshservice'
 
     'Read-SingleProperty',
+    'Import-Config',
     'Read-RateLimit',
     'Read-Cache',
     'Write-Cache',
@@ -74,6 +76,8 @@
     'Get-FreshserviceDepartments',
 
     'Get-FreshserviceLocations',
+    'New-FreshserviceLocation',
+    'Remove-FreshserviceLocation',
 
     'Get-FreshserviceRequesters',
     'Update-FreshserviceRequester',

@@ -5,6 +5,5 @@
 
 # GLOBAL VARS
 
-$config = Get-Content -Path "$PSScriptRoot\config.json" -Raw | ConvertFrom-Json
 
 $global:cache_storage = [System.Collections.ArrayList]@() # cache storage array
