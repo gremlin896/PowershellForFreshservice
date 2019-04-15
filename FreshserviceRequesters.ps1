@@ -15,7 +15,7 @@ function Update-FreshserviceRequester {
         [int64]$id,  #todo : make mandatory
         [string]$first_name,
         [string]$last_name,
-        [string]$location_id,
+        [int64]$location_id,
         [string]$job_title
     )
     $body = @{
