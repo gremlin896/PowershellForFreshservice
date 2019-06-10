@@ -28,7 +28,7 @@
   ProcessorArchitecture = 'None'
 
   # Modules that must be imported into the global environment prior to importing this module
-  RequiredModules = @('PoshRSJob')
+  RequiredModules = @()
 
   # Assemblies that must be loaded prior to importing this module
   # RequiredAssemblies = @()
@@ -51,6 +51,7 @@
     'FreshserviceLocations.ps1',
     'FreshserviceRequesters.ps1',
     'FreshserviceProblems.ps1',
+    'FreshserviceAgents.ps1'
 
     'Helpers.ps1'
   )
@@ -84,7 +85,10 @@
     'New-FreshserviceRequester',
     'Remove-FreshserviceRequester',
 
-    'Get-FreshserviceProblems'
+    'Get-FreshserviceProblems',
+
+    'Get-FreshserviceAgents',
+    'Update-FreshserviceAgent'
 
   )
 

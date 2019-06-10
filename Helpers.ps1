@@ -150,8 +150,8 @@ function Clear-Cache
     elseif ($PSBoundParameters.ContainsKey('url'))
     {
         $selection = $global:cache_storage | Where-Object url -eq $url
-        Write-Verbose "Cleared $($selection.url) from cache"
         $global:cache_storage.Remove($selection)
+        Write-Verbose "Cleared $($url) from cache"
     }
     else {
         throw "Provide an argument for Clear-Cache"
@@ -164,7 +164,8 @@ function Write-Cache
         [string]$url,
         [PSObject]$data
     )
-    Write-Verbose "Cached: $url"
+    Clear-Cache -url $url
     [void]$global:cache_storage.Add(@{url = $url; timestamp = Get-Date; data = $data})
+    Write-Verbose "Cached: $url"
 }
 
