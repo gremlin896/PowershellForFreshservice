@@ -125,7 +125,7 @@ function Get-FreshservicePaginated
         $pg_result += $result
     } while ($while)
 
-    get-rsjob | remove-rsjob # clear all runspace jobs
+    if ($async) { get-rsjob | remove-rsjob } # clear all runspace jobs
 
     $pg_result = $pg_result | ConvertFrom-Json
 
@@ -192,8 +192,16 @@ function Invoke-FreshserviceRestMethod ##TODO: NEED API LIMIT WARNINGS, ETC + ot
     $rest_args = @{
 
     }
-
+    try {
     Invoke-RestMethod -method $Method -uri $url -headers $HTTPHeaders -ErrorAction Stop -Body $Body
+
+    } catch { # todo: move elsewhere
+        write-host $_
+        if ($_.Exception.Response.StatusCode.value__ -eq 429) {
+            Write-Host "API Limit Reached - Sleeping for 10 mins"
+            Start-Sleep -s 600
+        }
+    }
 }
 
 function Update-Freshservice

@@ -51,7 +51,8 @@
     'FreshserviceLocations.ps1',
     'FreshserviceRequesters.ps1',
     'FreshserviceProblems.ps1',
-    'FreshserviceAgents.ps1'
+    'FreshserviceAgents.ps1',
+    'FreshserviceTickets.ps1',
 
     'Helpers.ps1'
   )
@@ -71,6 +72,9 @@
     'Read-Cache',
     'Write-Cache',
     'Clear-Cache',
+
+    'Get-FreshserviceTickets',
+    'Update-FreshserviceTicket',
 
     'Get-FreshserviceChanges',
 
